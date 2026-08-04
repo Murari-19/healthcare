@@ -1,0 +1,146 @@
+{
+	"name": "Git_Raw_Api_Load",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web_git_connect",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"headers": {
+						"User-Agent": "AzureDataFactory"
+					},
+					"url": "https://api.github.com/repos/bigdatabysumitm/Trendytech-Azure-Project/git/trees/main?recursive=1"
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Filter_datasets",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Filter_datasets').output.value",
+						"type": "Expression"
+					},
+					"batchCount": 10,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_http_csv",
+									"type": "DatasetReference",
+									"parameters": {
+										"relative_path": {
+											"value": "@concat('bigdatabysumitm/Trendytech-Azure-Project/main/', item().path)",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DelimitedText1",
+									"type": "DatasetReference",
+									"parameters": {
+										"file_path": {
+											"value": "@item().path",
+											"type": "Expression"
+										},
+										"folder_path": "@''",
+										"root_folder": "raw"
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Filter_datasets",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Web_git_connect",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Web_git_connect').output.tree",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@and(\n    startswith(item().path, 'datasets/'),\n    equals(item().type, 'blob')\n)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-07-29T19:16:22Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

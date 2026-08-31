@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-Healthcare-v6"
+		},
+		"ls_csv_api_accountKey": {
+			"value": ""
+		},
+		"ls_delta_accessToken": {
+			"value": ""
+		},
+		"ls_sql_db_password": {
+			"value": ""
+		},
+		"ls_csv_api_properties_typeProperties_url": {
+			"value": "https://ttadlsdevv6.dfs.core.windows.net/"
+		},
+		"ls_http_csv_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"ls_sql_db_properties_typeProperties_server": {
+			"value": "tthcemr-v6.database.windows.net"
+		},
+		"ls_sql_db_properties_typeProperties_database": {
+			"value": "@{linkedService().db_name}"
+		},
+		"ls_sql_db_properties_typeProperties_userName": {
+			"value": "murari"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

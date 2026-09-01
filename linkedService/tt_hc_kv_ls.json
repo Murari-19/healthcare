@@ -1,0 +1,10 @@
+{
+	"name": "tt_hc_kv_ls",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://keyvault-healthcare-v6.vault.azure.net/"
+		}
+	}
+}

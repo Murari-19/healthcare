@@ -5,15 +5,6 @@
 		"factoryName": {
 			"value": "ADF-Healthcare-v6"
 		},
-		"ls_csv_api_accountKey": {
-			"value": ""
-		},
-		"ls_delta_accessToken": {
-			"value": ""
-		},
-		"ls_sql_db_password": {
-			"value": ""
-		},
 		"ls_csv_api_properties_typeProperties_url": {
 			"value": "https://ttadlsdevv6.dfs.core.windows.net/"
 		},
@@ -28,6 +19,12 @@
 		},
 		"ls_sql_db_properties_typeProperties_userName": {
 			"value": "murari"
+		},
+		"tt_hc_adb_ls_properties_typeProperties_existingClusterId": {
+			"value": "0901-063606-yaqxbcf6"
+		},
+		"tt_hc_kv_ls_properties_typeProperties_baseUrl": {
+			"value": "https://keyvault-healthcare-v6.vault.azure.net/"
 		}
 	}
 }

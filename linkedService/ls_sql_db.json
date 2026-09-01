@@ -1,6 +1,5 @@
 {
 	"name": "ls_sql_db",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"parameters": {
 			"db_name": {
@@ -16,9 +15,17 @@
 			"trustServerCertificate": false,
 			"authenticationType": "SQL",
 			"userName": "murari",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "tt_hc_kv_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sql-db-pwd"
+			},
 			"connectRetryCount": 3,
-			"connectRetryInterval": 10,
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDFFRTRDQUMzLTg0QjQtNDYyQy1CMEYyLUE1RDg5MUFDODI1MV84NGRlMmE3YS1lMjIzLTRkMjktOWQwNS0yOGVmMjgxM2ZmY2EiDQp9"
+			"connectRetryInterval": 10
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }

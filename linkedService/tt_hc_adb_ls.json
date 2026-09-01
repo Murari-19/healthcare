@@ -1,0 +1,19 @@
+{
+	"name": "tt_hc_adb_ls",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-7405611902233203.3.azuredatabricks.net",
+			"accessToken": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "tt_hc_kv_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "tt-hc-adb-pat"
+			},
+			"existingClusterId": "0901-063606-yaqxbcf"
+		}
+	}
+}

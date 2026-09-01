@@ -1374,8 +1374,8 @@
 				"annotations": [],
 				"type": "AzureDatabricksDeltaLake",
 				"typeProperties": {
-					"domain": "https://adb-7405619214954557.17.azuredatabricks.net",
-					"clusterId": "0730-172147-vcj68b6q",
+					"domain": "https://adb-7405611902233203.3.azuredatabricks.net/",
+					"clusterId": "0901-063606-yaqxbcf6",
 					"accessToken": {
 						"type": "SecureString",
 						"value": "[parameters('ls_delta_accessToken')]"
@@ -1421,7 +1421,9 @@
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('ls_sql_db_password')]"
-					}
+					},
+					"connectRetryCount": 3,
+					"connectRetryInterval": 10
 				}
 			},
 			"dependsOn": []

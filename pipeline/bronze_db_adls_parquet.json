@@ -509,7 +509,7 @@
 										"userProperties": [],
 										"typeProperties": {
 											"pipeline": {
-												"referenceName": "pl_copy_files",
+												"referenceName": "pl_copy_from_emr",
 												"type": "PipelineReference"
 											},
 											"waitOnCompletion": true

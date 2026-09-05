@@ -82,8 +82,10 @@
 									"referenceName": "ds_adls_parquet",
 									"type": "DatasetReference",
 									"parameters": {
+										"root_folder": "bronze",
+										"folder_path": "@pipeline().parameters.targetpath",
 										"file_path": {
-											"value": "@pipeline().parameters.targetpath",
+											"value": "@split(pipeline().parameters.tablename,'.')[1]\n",
 											"type": "Expression"
 										}
 									}

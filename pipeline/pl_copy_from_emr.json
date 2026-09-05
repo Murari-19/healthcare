@@ -66,8 +66,14 @@
 									"referenceName": "ds_sql_db",
 									"type": "DatasetReference",
 									"parameters": {
-										"table_name": "@split(item().tablename,'.')[1]",
-										"db_name": "@item().database"
+										"db_name": {
+											"value": "@pipeline().parameters.database",
+											"type": "Expression"
+										},
+										"table_name": {
+											"value": "@split(pipeline().parameters.tablename, '.')[1]",
+											"type": "Expression"
+										}
 									}
 								}
 							],
@@ -76,9 +82,10 @@
 									"referenceName": "ds_adls_parquet",
 									"type": "DatasetReference",
 									"parameters": {
-										"root_folder": "bronze",
-										"folder_path": "@item().targetpath",
-										"file_path": "@split(item().tablename,'.')[1]"
+										"file_path": {
+											"value": "@pipeline().parameters.targetpath",
+											"type": "Expression"
+										}
 									}
 								}
 							]
@@ -149,7 +156,7 @@
 										"table_name": "'aa'"
 									}
 								},
-								"firstRowOnly": true
+								"firstRowOnly": false
 							}
 						}
 					],
@@ -200,8 +207,14 @@
 									"referenceName": "ds_sql_db",
 									"type": "DatasetReference",
 									"parameters": {
-										"table_name": "@split(item().tablename,'.')[1]",
-										"db_name": "@item().database"
+										"table_name": {
+											"value": "@split(pipeline().parameters.tablename, '.')[1]",
+											"type": "Expression"
+										},
+										"db_name": {
+											"value": "@pipeline().parameters.database",
+											"type": "Expression"
+										}
 									}
 								}
 							],
@@ -210,9 +223,10 @@
 									"referenceName": "ds_adls_parquet",
 									"type": "DatasetReference",
 									"parameters": {
-										"root_folder": "bronze",
-										"folder_path": "@item().targetpath",
-										"file_path": "@split(item().tablename,'.')[1]"
+										"file_path": {
+											"value": "@pipeline().parameters.targetpath",
+											"type": "Expression"
+										}
 									}
 								}
 							]
@@ -252,7 +266,7 @@
 										"table_name": "'aa'"
 									}
 								},
-								"firstRowOnly": true
+								"firstRowOnly": false
 							}
 						}
 					]

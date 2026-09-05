@@ -66,12 +66,12 @@
 									"referenceName": "ds_sql_db",
 									"type": "DatasetReference",
 									"parameters": {
-										"db_name": {
-											"value": "@pipeline().parameters.database",
-											"type": "Expression"
-										},
 										"table_name": {
 											"value": "@split(pipeline().parameters.tablename, '.')[1]",
+											"type": "Expression"
+										},
+										"db_name": {
+											"value": "@pipeline().parameters.database",
 											"type": "Expression"
 										}
 									}
@@ -223,8 +223,10 @@
 									"referenceName": "ds_adls_parquet",
 									"type": "DatasetReference",
 									"parameters": {
+										"root_folder": "bronze",
+										"folder_path": "@pipeline().parameters.targetpath",
 										"file_path": {
-											"value": "@pipeline().parameters.targetpath",
+											"value": "@split(pipeline().parameters.tablename,'.')[1]",
 											"type": "Expression"
 										}
 									}

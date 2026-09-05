@@ -51,8 +51,37 @@
 										"type": "ParquetWriteSettings"
 									}
 								},
-								"enableStaging": false
-							}
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_sql_db",
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": "@split(item().tablename,'.')[1]",
+										"db_name": "@item().database"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_adls_parquet",
+									"type": "DatasetReference",
+									"parameters": {
+										"root_folder": "bronze",
+										"folder_path": "@item().targetpath",
+										"file_path": "@split(item().tablename,'.')[1]"
+									}
+								}
+							]
 						},
 						{
 							"name": "Fetch_logs",
@@ -72,6 +101,14 @@
 									"query": {
 										"value": "@concat('select coalesce(cast(max(loaddate) as date),''','1900-01-01',''') as last_fetched_date from audit.load_logs where',' data_source=''',pipeline().parameters.datasource,''' and tablename=''',pipeline().parameters.tablename,'''')",
 										"type": "Expression"
+									}
+								},
+								"dataset": {
+									"referenceName": "ds_deltalake",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema_name": "'aa'",
+										"table_name": "'aa'"
 									}
 								},
 								"firstRowOnly": true
@@ -104,7 +141,15 @@
 										"type": "Expression"
 									}
 								},
-								"firstRowOnly": false
+								"dataset": {
+									"referenceName": "ds_deltalake",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema_name": "'aa'",
+										"table_name": "'aa'"
+									}
+								},
+								"firstRowOnly": true
 							}
 						}
 					],
@@ -140,8 +185,37 @@
 										"type": "ParquetWriteSettings"
 									}
 								},
-								"enableStaging": false
-							}
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_sql_db",
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": "@split(item().tablename,'.')[1]",
+										"db_name": "@item().database"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_adls_parquet",
+									"type": "DatasetReference",
+									"parameters": {
+										"root_folder": "bronze",
+										"folder_path": "@item().targetpath",
+										"file_path": "@split(item().tablename,'.')[1]"
+									}
+								}
+							]
 						},
 						{
 							"name": "Insert_Logs_Full_load",
@@ -170,7 +244,15 @@
 										"type": "Expression"
 									}
 								},
-								"firstRowOnly": false
+								"dataset": {
+									"referenceName": "ds_deltalake",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema_name": "'aa'",
+										"table_name": "'aa'"
+									}
+								},
+								"firstRowOnly": true
 							}
 						}
 					]

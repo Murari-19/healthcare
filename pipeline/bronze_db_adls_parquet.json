@@ -1,5 +1,5 @@
 {
-	"name": "bronze_to_silver_db_adls_parquet",
+	"name": "bronze_db_adls_parquet",
 	"properties": {
 		"activities": [
 			{
@@ -200,6 +200,8 @@
 						{
 							"name": "If Condition2",
 							"type": "IfCondition",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "If Condition1",
@@ -474,6 +476,43 @@
 												}
 											},
 											"firstRowOnly": true
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "If Condition3",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "If Condition2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().is_active,'1')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Execute Pipeline1",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"policy": {
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "pl_copy_files",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true
 										}
 									}
 								]

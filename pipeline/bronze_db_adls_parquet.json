@@ -200,6 +200,8 @@
 						{
 							"name": "If Condition2",
 							"type": "IfCondition",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "If Condition1",

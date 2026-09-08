@@ -279,22 +279,28 @@
 		],
 		"parameters": {
 			"loadtype": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@item().loadtype"
 			},
 			"targetpath": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@item().targetpath"
 			},
 			"tablename": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@item().tablename"
 			},
 			"datasource": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@item().datasource"
 			},
 			"watermark": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@item().watermark"
 			},
 			"database": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@item().database"
 			}
 		},
 		"annotations": [],

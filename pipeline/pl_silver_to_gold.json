@@ -1,0 +1,371 @@
+{
+	"name": "pl_silver_to_gold",
+	"properties": {
+		"activities": [
+			{
+				"name": "slr_transactions",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/3. Silver/Transactions"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "gld_transactions_copy1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "slr_transactions",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/4. Gold/fact_transaction"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "slr_departments",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/3. Silver/Departments_F"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "gld_departments",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "slr_departments",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/4. Gold/dim_department"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "slr_patient",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/3. Silver/Patient"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "slr_npi",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/murarialli15@gmail.com/silver/npi_api"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "slr_icd_code",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/3. Silver/ICD Code"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "gld_icd_code",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "slr_icd_code",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/4. Gold/dim_icd_code"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "gld_npi",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "slr_npi",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/4. Gold/dim_npi"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "gld_patient",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "slr_patient",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/4. Gold/dim_patient"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "slr_providers",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/3. Silver/Providers_F"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "gld_providers",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "slr_providers",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/4. Gold/dim_provider"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "slr_cpt_code",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/3. Silver/CPT codes"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "gld_cpt_code",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "slr_cpt_code",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/4. Gold/dim_cpt_code"
+				},
+				"linkedServiceName": {
+					"referenceName": "tt_hc_adb_ls",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "slr_claims",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/murarialli15@gmail.com/silver/Claims"
+				}
+			},
+			{
+				"name": "slr_encounters",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/murarialli15@gmail.com/silver/Encounters"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-09-27T16:50:06Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

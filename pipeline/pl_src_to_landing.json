@@ -1,5 +1,5 @@
 {
-	"name": "bronze_db_adls_parquet",
+	"name": "pl_src_to_landing",
 	"properties": {
 		"activities": [
 			{

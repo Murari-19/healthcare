@@ -129,7 +129,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/murarialli15@gmail.com/silver/npi_api"
+					"notebookPath": "/Healthcare-folder/Trendytech-Azure-Project-main/3. Silver/NPI"
 				},
 				"linkedServiceName": {
 					"referenceName": "tt_hc_adb_ls",
